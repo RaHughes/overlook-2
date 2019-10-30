@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Overlook</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    <header role="banner">
+      <h1 class="header_h1">Overlook</h1>
+      <p class="header_p"> Welcome <span class="header_p_span"> User </span>!</h1>
+    </header>
+    <main role="main">
+      <section class="customer_dashboard dashboard">
+        <p>Bookings</p>
+        <p>Total Spent</p>
+      </section>
+      <section class="manager_dashboard dashboard">
+        <input type="text" alt="Search for a user here" class="header_searchbar">
+        <p>Total Rooms Available for Todays Date</p>
+        <p>Total Revenue for Todays date</p>
+        <p>% of Rooms Available for Todays date</p>
+      </section>
+    </main>
+    <form class="login_form" action="index.html" method="get">
+      <h1 class="form_h1">Overlook</h1>
+      <p class="form_p">Please insert your Username and Password</p>
+      <input type="text" alt="Input your usernmane here" placeholder="Username" class="login_username">
+      <input type="password" alt="Input your password here" placeholder="Password" class="login_password">
+      <button type="button" name="button" class='form_button login_button' id='submit_user_button' disabled>SUBMIT</button>
+    </form>
   </body>
 </html>
