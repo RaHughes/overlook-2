@@ -8,3 +8,5 @@ class Bookings {
     this.roomService = data.roomServiceCharges;
   }
 }
+
+export default Bookings;
