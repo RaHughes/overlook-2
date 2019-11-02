@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Overlook</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Staatliches&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Exo+2&display=swap');
+      </style>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    <header role="banner" hidden>
+      <h1 class="header_h1">Overlook</h1>
+      <p class="header_p"> Welcome <span class="header_p_span"> User </span>!</h1>
+    </header>
+    <main role="main">
+      <section class="customer_dashboard dashboard" hidden>
+          <ul class="customer_tabs tabs">
+              <li><a class="c_main" href="#tabs_customer_main">Main</a></li>
+              <li><a class="c_room" href="#tabs_customer_rooms">Rooms</a></li>
+            </ul>
+          <div id="tabs_customer_main">
+            <p>Bookings</p>
+            <p>Total Spent All Time <span class="customer_total"></span></p>
+          </div>
+          <div id="tabs_customer_rooms">
+            <p>available rooms</p>
+          </div>
+      </section>
+      <section class="manager_dashboard dashboard" hidden>
+          <ul class="manager_tabs tabs">
+              <li><a href="#tabs_manager_main">Main</a></li>
+              <li><a href="#tabs_manager_rooms">Rooms</a></li>
+              <li><a href="#tabs_manager_customer">Customer</a></li>
+            </ul>
+          <div id="tabs_manager_main">
+            <p>Total Rooms Available for Todays: <span class="total_rooms"></span></p>
+            <p>Total Revenue for Todays: <span class="total_rev"></span></p>
+            <p>Percent of Rooms Available for Todays: <span class="total_perc"></span></p>
+          </div>
+          <div id="tabs_manager_rooms">
+          </div>
+          <div id="tabs_manager_customer">
+            <input type="text" alt="Search for a user here" placeholder="Search for user" class="header_searchbar">
+          </div>
+      </section>
+    </main>
+    <form class="login_form" action="index.html" method="get">
+      <h1 class="form_h1">Overlook</h1>
+      <p class="form_p">Please enter your Username and Password</p>
+      <input type="text" alt="Input your usernmane here" placeholder="Username" class="login_username">
+      <input type="password" alt="Input your password here" placeholder="Password" class="login_password">
+      <button type="button" name="button" class='login_button' disabled>SUBMIT</button>
+    </form>
   </body>
 </html>
