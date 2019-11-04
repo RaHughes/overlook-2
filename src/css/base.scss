@@ -97,3 +97,47 @@ main {
 
 
 }
+
+table {
+  display: inline-block;
+  border-collapse: collapse;
+  margin: 25px 0px;
+  font-size: 0.9em;
+  min-width: 200px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+thead tr {
+  color: grey;
+  text-align: left;
+  font-weight: 700;
+}
+
+
+th,
+td {
+  text-align: center;
+  color: white;
+}
+
+
+th {
+  padding: 10px;
+  font-size: 1.5em;
+  color: white;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  
+}
+
+table tr:nth-of-type(even) {
+  background-color: grey;
+}
+
+.available-rooms-table th {
+  width: 200px;
+}
+

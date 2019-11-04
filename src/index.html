@@ -19,11 +19,39 @@
               <li><a class="c_room" href="#tabs_customer_rooms">Rooms</a></li>
             </ul>
           <div id="tabs_customer_main">
-            <p>Bookings</p>
             <p>Total Spent All Time <span class="customer_total"></span></p>
+            <table>
+              <tr>
+                <th colspan="2">My Bookings</th>
+              </tr>
+              <tr>
+                <th class="room_header" data-sort="roomNumber">Room</th>
+                <th class="room_header" data-sort="date">Date</th>
+              </tr>
+              <tbody class="booking_body">
+              </tbody>
+            </table>
           </div>
           <div id="tabs_customer_rooms">
-            <p>available rooms</p>
+              <p>Enter a Date to see Available Rooms</p>
+              <p>Date: <input type='text' placeholder="YYYY/MM/DD" class='datepicker'><button class='datepicker_button'>SUBMIT</button></p>
+              <p>Enter the Room Number you would like to book.</p>
+              <p>Room Number: <input type='text' class="room_number"><button class='roompicker_button'>SUBMIT</button></p>
+            <table>
+            <tr>
+              <th colspan="6">Available Rooms</th>
+              </tr>
+              <tr>
+                <th class="room_header" data-sort="number">Room</th>
+                <th class="room_header" data-sort="roomType">Room Type</th>
+                <th class="room_header" data-sort="bidet">Bidet?</th>
+                <th class="room_header" data-sort="bedSize">Bed Size</th>
+                <th class="room_header" data-sort="numBeds">Beds</th>
+                <th class="room_header" data-sort="costPerNight">Cost Per Night $</th>
+              </tr>
+              <tbody class="room_body">           
+              </tbody>
+            </table>
           </div>
       </section>
       <section class="manager_dashboard dashboard" hidden>
