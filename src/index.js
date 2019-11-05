@@ -11,8 +11,6 @@ let roomData;
 let bookingData;
 let user;
 let hotel;
-let rooms;
-let bookings;
 const currentDate = getDate()
 const formatData = (data) => {
   const result = data.reduce((formattedData, dataset) => {
@@ -33,8 +31,6 @@ Promise.all([
   roomData = allData.rooms
   bookingData = allData.bookings
   hotel = new Hotel(userData, roomData, bookingData);
-  rooms = new Rooms(roomData);
-  bookings = new Bookings(bookingData);
   console.log(currentDate)
 });
 
@@ -53,6 +49,22 @@ $('.login_button').on('click', function() {
     $('.form_p').text('Invalid Username or Password')
     $('.form_p').addClass('error')
   }
+});
+
+$('.datepicker_button').on('click', function() {
+  displayRoomsAvailable()
+})
+
+$('.room_header').on('click', function() {
+  let prop = $(this).attr('data-sort');
+  let today = $('.datepicker').val()
+  let newTable = user.roomsAvailableToday(today);
+  let sortTable = sortByType(newTable, prop);
+  displayRoomsAvailable(sortTable)
+});
+
+$('.roompicker_button').on('click', function() {
+  bookRoom();
 })
 
 
@@ -74,19 +86,96 @@ function doThis() {
   $('.total_rooms').text(hotel.totalRoomsAvailableToday(currentDate));
   $('.total_rev').text(hotel.totalRevenueToday(currentDate));
   $('.total_perc').text(hotel.percentRoomsOccupied(currentDate));
-  console.log(hotel.users)
 }
 
 function orThis() {
   $('.login_form').toggle('hidden');
   $('header').toggle('hidden');
   $('.customer_dashboard').toggle('hidden');
-  let id = parseInt($('.login_username').val())
-  hotel.findUser(id)
-  user = new User(hotel.currentUser, hotel.bookings, hotel.rooms)
-  console.log(user)
-  $('.header_p_span').text(user.name.split(' ')[0])
-  $('.customer_total').text(user.totalSpent())
+  let id = parseInt($('.login_username').val());
+  hotel.findUser(id);
+  user = new User(hotel.currentUser, hotel.bookings, hotel.rooms);
+  $('.header_p_span').text(user.name.split(' ')[0]);
+  $('.customer_total').text(user.totalSpent());
+  displayBookings()
 }
 
+function displayBookings() {
+  let allBookings = user.allUserBookings()  
+  allBookings.forEach(currentBooking => {
+      $('.booking_body').append(`
+      <tr class="room-number" data-room="${currentBooking.roomNumber}">
+      <td>${currentBooking.roomNumber}</td>
+      <td>${currentBooking.date}</td>
+      </tr>
+      `)
+    })
+  }
 
+function sortByType(table, prop) {
+  let rooms = table
+  if(prop === 'roomType') {
+    return rooms.sort((a, b) => {
+      if(a[prop] < b[prop]) { 
+        return -1; 
+      }
+      if(a[prop] > b[prop]) { 
+        return 1 
+      }
+    })
+  }
+  return rooms.sort((a, b) => a[prop] - b[prop]);
+}
+
+function displayRoomsAvailable(table) {
+  $('.room_body').empty();
+  if(table) {
+    table.forEach(room => {
+      $('.room_body').append(`
+      <tr class="table_room-number" data-room="${room.number}">
+        <td>${room.number}</td>
+        <td>${room.roomType}</td>
+        <td>${room.bidet}</td>
+        <td>${room.bedSize}</td>
+        <td>${room.numBeds}</td>
+        <td>$${room.costPerNight}</td>
+      </tr>
+      `)
+    })
+  } else {
+  let today = $('.datepicker').val()
+  let todaysRooms = user.roomsAvailableToday(today)
+  todaysRooms.forEach(room => {
+    $('.room_body').append(`
+    <tr class="table_room-number" data-room="${room.number}">
+      <td>${room.number}</td>
+      <td>${room.roomType}</td>
+      <td>${room.bidet}</td>
+      <td>${room.bedSize}</td>
+      <td>${room.numBeds}</td>
+      <td>$${room.costPerNight}</td>
+    </tr>
+    `)
+  })
+  }
+}
+
+function bookRoom() {
+  let roomID = parseInt($('.room_number').val());
+  let dataToPost = {
+    "userID": user.id,
+    "date": $('.datepicker').val(),
+    "roomNumber": roomID,
+  }
+  postData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', dataToPost);
+}
+
+function postData(destination, data) {
+  fetch(destination, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+}

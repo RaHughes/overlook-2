@@ -34,6 +34,25 @@ class User extends Hotel {
     })
     return `$${cost.toPrecision(5)}`
   }
+
+  roomsAvailableToday(date) {
+    let takenRoomsID = []
+    this.bookings.forEach(booking => {
+      if(date === booking.date) {
+        takenRoomsID.push(booking)
+      }
+     })
+     let takenRooms = []
+     takenRoomsID.forEach(roomID => {
+      this.rooms.filter(room => {
+        if(roomID.roomNumber === room.number) {
+          takenRooms.push(room)
+        }
+      })
+      console.log(takenRooms)
+     })
+     return takenRooms
+    }
 }
 
 export default User;
