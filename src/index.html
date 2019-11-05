@@ -13,13 +13,14 @@
       <p class="header_p"> Welcome <span class="header_p_span"> User </span>!</h1>
     </header>
     <main role="main">
+    <div id="tabs">
       <section class="customer_dashboard dashboard" hidden>
           <ul class="customer_tabs tabs">
               <li><a class="c_main" href="#tabs_customer_main">Main</a></li>
               <li><a class="c_room" href="#tabs_customer_rooms">Rooms</a></li>
             </ul>
           <div id="tabs_customer_main">
-            <p>Total Spent All Time <span class="customer_total"></span></p>
+            <p>Total Spent Money Spent: <span class="customer_total"></span></p>
             <table>
               <tr>
                 <th colspan="2">My Bookings</th>
@@ -34,9 +35,11 @@
           </div>
           <div id="tabs_customer_rooms">
               <p>Enter a Date to see Available Rooms</p>
-              <p>Date: <input type='text' placeholder="YYYY/MM/DD" class='datepicker'><button class='datepicker_button'>SUBMIT</button></p>
-              <p>Enter the Room Number you would like to book.</p>
-              <p>Room Number: <input type='text' class="room_number"><button class='roompicker_button'>SUBMIT</button></p>
+              <p>Date: <input type='text' placeholder="YYYY/MM/DD" class='datepicker'></p>
+              <button class='datepicker_button'>SUBMIT</button>
+              <p class="confirm">Enter the Room Number you would like to book.</p>
+              <p>Room Number: <input type='text' class="room_number"></p>
+              <button class='roompicker_button'>SUBMIT</button>
             <table>
             <tr>
               <th colspan="6">Available Rooms</th>
@@ -54,23 +57,66 @@
             </table>
           </div>
       </section>
+      </div>
+      <div id="tabs2">
       <section class="manager_dashboard dashboard" hidden>
           <ul class="manager_tabs tabs">
               <li><a href="#tabs_manager_main">Main</a></li>
-              <li><a href="#tabs_manager_rooms">Rooms</a></li>
               <li><a href="#tabs_manager_customer">Customer</a></li>
+              <li><a href="#tabs_manager_rooms">Rooms</a></li>
             </ul>
           <div id="tabs_manager_main">
-            <p>Total Rooms Available for Todays: <span class="total_rooms"></span></p>
-            <p>Total Revenue for Todays: <span class="total_rev"></span></p>
-            <p>Percent of Rooms Available for Todays: <span class="total_perc"></span></p>
-          </div>
-          <div id="tabs_manager_rooms">
+            <p>Total Rooms Available for Today: <span class="total_rooms"></span></p>
+            <p>Total Revenue for Today: <span class="total_rev"></span></p>
+            <p>Percent of Rooms Available for Today: <span class="total_perc"></span></p>
           </div>
           <div id="tabs_manager_customer">
-            <input type="text" alt="Search for a user here" placeholder="Search for user" class="header_searchbar">
+            <p>Search for a Customer:</p>
+            <input type="text" alt="Search for a user here" placeholder="Search for user" class="user_searchbar">
+            <div class="search_list">
+            </div>
+              <div class="customer_info" hidden>
+                <p> Customer: <span class="customer_name"></span></p>
+                <p> Total Money Spent: <span class="customer_total"></span></p>
+                  <table>
+                    <tr>
+                      <th colspan="2">My Bookings</th>
+                    </tr>
+                    <tr>
+                      <th class="room_header" data-sort="roomNumber">Room</th>
+                      <th class="room_header" data-sort="date">Date</th>
+                    </tr>
+                    <tbody class="booking_body">
+                  </tbody>
+                </table>
+              </div>
+          </div>
+          <div id="tabs_manager_rooms">
+              <p>Enter a Date to see Available Rooms</p>
+              <p>Date: <input type='text' placeholder="YYYY/MM/DD" class='datepicker2'></p>
+              <button class='datepicker_button2'>SUBMIT</button>
+              <p class="confirm2">Enter the Room Number you would like to book.</p>
+              <p>Room Number: <input type='text' class="room_number2"></p>
+              <button class='roompicker_button2'>SUBMIT</button>
+            <table>
+            <tr>
+              <th colspan="6">Available Rooms</th>
+              </tr>
+              <tr>
+                <th class="room_header" data-sort="number">Room</th>
+                <th class="room_header" data-sort="roomType">Room Type</th>
+                <th class="room_header" data-sort="bidet">Bidet?</th>
+                <th class="room_header" data-sort="bedSize">Bed Size</th>
+                <th class="room_header" data-sort="numBeds">Beds</th>
+                <th class="room_header" data-sort="costPerNight">Cost Per Night $</th>
+              </tr>
+              <tbody class="room_body2">           
+              </tbody>
+            </table>
+          </div>
           </div>
       </section>
+    </div>
     </main>
     <form class="login_form" action="index.html" method="get">
       <h1 class="form_h1">Overlook</h1>

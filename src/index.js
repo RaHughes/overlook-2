@@ -3,8 +3,8 @@ import './css/base.scss';
 import './images/turing-logo.png'
 import User from './user';
 import Hotel from './hotel';
-import Rooms from './rooms';
-import Bookings from './bookings';
+import 'jquery-ui/ui/widgets/tabs';
+import 'jquery-ui/ui/widgets/datepicker';
 
 let userData;
 let roomData;
@@ -31,7 +31,6 @@ Promise.all([
   roomData = allData.rooms
   bookingData = allData.bookings
   hotel = new Hotel(userData, roomData, bookingData);
-  console.log(currentDate)
 });
 
 //  ********** Event Listeners *************
@@ -41,9 +40,9 @@ $('.login_username').keyup(function() {
 })
 
 $('.login_button').on('click', function() {
-  if($('.login_username').val().toLowerCase() === 'manager' && $('.login_password').val() === 'overlook2019') {
+  if(($('.login_username').val().toLowerCase() === 'manager') && ($('.login_password').val() === 'overlook2019')) {
     doThis();
-  } else if ($('.login_username').val().toLowerCase() === '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9' || '10' &&  $('.login_password').val() === 'overlook2019') {
+  } else if (($('.login_username').val() === '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9' || '10') &&  ($('.login_password').val() === 'overlook2019')) {
     orThis();
   } else {
     $('.form_p').text('Invalid Username or Password')
@@ -52,23 +51,55 @@ $('.login_button').on('click', function() {
 });
 
 $('.datepicker_button').on('click', function() {
-  displayRoomsAvailable()
+  displayRoomsAvailable();
+})
+
+$('.datepicker_button2').on('click', function() {
+  displayRoomsAvailable2();
 })
 
 $('.room_header').on('click', function() {
   let prop = $(this).attr('data-sort');
-  let today = $('.datepicker').val()
+  let today = $('.datepicker').val() || $('.datepicker2').val();
   let newTable = user.roomsAvailableToday(today);
   let sortTable = sortByType(newTable, prop);
   displayRoomsAvailable(sortTable)
+  displayRoomsAvailable2(sortTable)
 });
+
+$('.user_searchbar').on('keydown', customerSearch);
 
 $('.roompicker_button').on('click', function() {
   bookRoom();
+  $('.confirm').text('Your Room has been booked');
+  displayBookings()
+
+});
+
+$('.roompicker_button2').on('click', function () {
+  bookRoom2();
+  $('.confirm2').text('Your Room has been booked');
+  displayBookings()
+
 })
 
+$('.search_list').on('click', '.search_customer', function() {
+  let currentName = this.innerText;
+  hotel.currentUser = hotel.findCustomerName(currentName);
+  user = new User(hotel.currentUser, hotel.bookings, hotel.rooms);
+  $('.search_list').empty();
+  appendSearchCustomer();
+});
 
 // *********** Functions ************
+$( function() {
+  $( "#tabs" ).tabs();
+} );
+
+$( function() {
+  $( "#tabs2" ).tabs();
+} );
+
 function getDate() {
   var m = new Date();
   var dateString =
@@ -101,6 +132,7 @@ function orThis() {
 }
 
 function displayBookings() {
+  $('.booking_body').empty();
   let allBookings = user.allUserBookings()  
   allBookings.forEach(currentBooking => {
       $('.booking_body').append(`
@@ -170,6 +202,16 @@ function bookRoom() {
   postData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', dataToPost);
 }
 
+function bookRoom2() {
+  let roomID = parseInt($('.room_number2').val());
+  let dataToPost = {
+    "userID": user.id,
+    "date": $('.datepicker2').val(),
+    "roomNumber": roomID,
+  }
+  postData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', dataToPost);
+}
+
 function postData(destination, data) {
   fetch(destination, {
     method: 'POST',
@@ -178,4 +220,68 @@ function postData(destination, data) {
     },
     body: JSON.stringify(data)
   })
+}
+
+function customerSearch() {
+  let searchText = $('.user_searchbar').val().toLowerCase();
+  let matches = hotel.users.filter(user => {
+    return user.name.toLowerCase().includes(searchText);
+  })
+  if(searchText.length === 0) {
+    matches = [];
+    $('.search_list').empty();
+  }
+  displaySearchResults(matches);
+}
+
+function displaySearchResults(matches) {
+  $('.search_list').empty();
+  if(matches.length > 0 && matches.length < 100) {
+    let searchHtml = matches.slice(0, 10).map(match => `
+    <article  class="search_customer">
+    <h4>${match.name}</h4>
+    </article>
+    `).join('');
+    $('.search_list').append(searchHtml);
+  }
+}
+
+function appendSearchCustomer() {
+  $('.customer_info').toggle('hidden');
+  $('.customer_name').text(user.name);
+  $('.customer_total').text(user.totalSpent());
+  displayBookings();
+}
+
+function displayRoomsAvailable2(table) {
+  $('.room_body2').empty();
+  if(table) {
+    table.forEach(room => {
+      $('.room_body2').append(`
+      <tr class="table_room-number" data-room="${room.number}">
+        <td>${room.number}</td>
+        <td>${room.roomType}</td>
+        <td>${room.bidet}</td>
+        <td>${room.bedSize}</td>
+        <td>${room.numBeds}</td>
+        <td>$${room.costPerNight}</td>
+      </tr>
+      `)
+    })
+  } else {
+  let today = $('.datepicker2').val()
+  let todaysRooms = user.roomsAvailableToday(today)
+  todaysRooms.forEach(room => {
+    $('.room_body2').append(`
+    <tr class="table_room-number" data-room="${room.number}">
+      <td>${room.number}</td>
+      <td>${room.roomType}</td>
+      <td>${room.bidet}</td>
+      <td>${room.bedSize}</td>
+      <td>${room.numBeds}</td>
+      <td>$${room.costPerNight}</td>
+    </tr>
+    `)
+  })
+  }
 }

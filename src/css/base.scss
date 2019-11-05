@@ -11,7 +11,6 @@ body {
 
 .dashboard {
   border: 2px solid $border-color;
-  // height: 100vh;
 }
 
 header {
@@ -30,6 +29,54 @@ header {
 
 main {
   font-family: 'Exo 2', sans-serif;
+
+  button {
+    font-family: 'Exo 2', sans-serif;
+    height: 30px;
+    width: 200px;
+    background-color: $accent-font;
+    color: white;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0 10px white;;
+      transition: 0.4s;
+    }
+  }
+
+  #tabs_customer_rooms {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  #tabs_customer_main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  #tabs_manager_customer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  #tabs_manager_main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  #tabs_manager_rooms {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
 }
 
 .tabs {
@@ -126,6 +173,7 @@ th {
   padding: 10px;
   font-size: 1.5em;
   color: white;
+  cursor: pointer;
 }
 
 table tbody tr {
