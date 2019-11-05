@@ -53,7 +53,7 @@ class Hotel {
         todaysBookings.push(booking)
       }
     }) 
-    return `${(this.rooms.length - todaysBookings.length) / this.rooms.length * 100}%`
+    return `${((this.rooms.length - (this.rooms.length - todaysBookings.length)) / this.rooms.length * 100).toPrecision(2)}%`
   }
 }
 

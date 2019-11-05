@@ -42,7 +42,7 @@ $('.login_username').keyup(function() {
 $('.login_button').on('click', function() {
   if(($('.login_username').val().toLowerCase() === 'manager') && ($('.login_password').val() === 'overlook2019')) {
     doThis();
-  } else if (($('.login_username').val() === '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9' || '10') &&  ($('.login_password').val() === 'overlook2019')) {
+  } else if (($('.login_username').val() === '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9' || '10' || '11' || '12' || '13' || '14' || '15' || '16' || '17' || '18' || '19' || '20') &&  ($('.login_password').val() === 'overlook2019')) {
     orThis();
   } else {
     $('.form_p').text('Invalid Username or Password')
