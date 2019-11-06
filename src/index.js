@@ -212,7 +212,7 @@ function bookRoom() {
 function bookRoom2() {
   let roomID = parseInt($('.room_number2').val());
   let dataToPost = {
-    "id": date.now(),
+    "id": Date.now(),
     "userID": user.id,
     "date": $('.datepicker2').val(),
     "roomNumber": roomID,
