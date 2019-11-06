@@ -4,13 +4,15 @@ import Hotel from '../src/hotel.js';
 import data from '../data/test-data.js';
 
 describe('Hotel', function() {
+  let hotel;
+  beforeEach( function() {
+    hotel = new Hotel(data.users, data.rooms, data.bookings);
+  });
   it('Should have 50 rooms', function() {
-    let hotel = new Hotel(data.users, data.rooms, data.bookings);
     expect(hotel.users.length).to.equal(20);
   });
 
-it('Should be able to find a User', function() {
-    let hotel = new Hotel(data.users, data.rooms, data.bookings);
+  it('Should be able to find a User', function() {
     hotel.findUser(1)
     expect(hotel.currentUser).to.eql(
      {
@@ -20,17 +22,14 @@ it('Should be able to find a User', function() {
   });
 
   it('Should be able to find rooms availbe for todays date', function() {
-    let hotel = new Hotel(data.users, data.rooms, data.bookings);
-    expect(hotel.totalRoomsAvailableToday('2019/10/19')).to.equal(49);
+    expect(hotel.totalRoomsAvailableToday('2019/10/19')).to.equal(1);
   });
 
   it('Should be able to find total revenue for todays date', function() {
-    let hotel = new Hotel(data.users, data.rooms, data.bookings)
     expect(hotel.totalRevenueToday('2019/10/29')).to.equal('$949.5');
   });
 
   it('Should be able to find percentage of rooms occupied for todays date', function() {
-    let hotel = new Hotel(data.users, data.rooms, data.bookings)
-    expect(hotel.percentRoomsOccupied('2019/10/29')).to.equal('94%')
+    expect(hotel.percentRoomsOccupied('2019/10/29')).to.equal('6.0%')
   })
 });
