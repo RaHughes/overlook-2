@@ -91,6 +91,12 @@ $('.search_list').on('click', '.search_customer', function() {
   appendSearchCustomer();
 });
 
+$('.booking_delete').on('click', function() {
+  let deleteThis = findDeleteBooking()
+  deleteData(deleteThis)
+  $('.delete_text').text('Booking Deleted')
+})
+
 // *********** Functions ************
 $( function() {
   $( "#tabs" ).tabs();
@@ -284,4 +290,26 @@ function displayRoomsAvailable2(table) {
     `)
   })
   }
+}
+
+function findDeleteBooking() {
+  let userBookings = user.allUserBookings();
+  let date = $('.delete_input').val();
+  let dataToDelete = undefined
+  userBookings.forEach(booking => {
+    if(booking.date === date) {
+      dataToDelete = { id: booking.id }
+    }
+  })
+  return dataToDelete
+}
+
+function deleteData(data) {
+  fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
 }
