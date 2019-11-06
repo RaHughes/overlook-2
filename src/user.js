@@ -26,7 +26,6 @@ class User extends Hotel {
         myBookings.push(booking)
       }
     }) 
-    console.log(myBookings)
     let cost = 0;
     myBookings.forEach(booking => {
       let roomPrice = this.rooms.find(roomID => roomID.number === booking.roomNumber) 
@@ -49,7 +48,6 @@ class User extends Hotel {
           takenRooms.push(room)
         }
       })
-      console.log(takenRooms)
      })
      return takenRooms
     }

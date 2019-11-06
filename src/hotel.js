@@ -17,6 +17,10 @@ class Hotel {
   return this.currentUser
   }
 
+  findCustomerName(name) {
+    return this.users.find(user => user.name === name);
+  };
+
   totalRoomsAvailableToday(date) {
     let takenRooms = []
     this.bookings.forEach(booking => {
@@ -24,7 +28,7 @@ class Hotel {
         takenRooms.push(booking)
       }
      })
-    return (this.rooms.length - takenRooms.length)
+    return (this.rooms.length - (this.rooms.length - takenRooms.length))
   }
 
   totalRevenueToday(date) {
@@ -49,7 +53,7 @@ class Hotel {
         todaysBookings.push(booking)
       }
     }) 
-    return `${(this.rooms.length - todaysBookings.length) / this.rooms.length * 100}%`
+    return `${((this.rooms.length - (this.rooms.length - todaysBookings.length)) / this.rooms.length * 100).toPrecision(2)}%`
   }
 }
 
