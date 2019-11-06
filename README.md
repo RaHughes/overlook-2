@@ -23,3 +23,4 @@ Overlook-2 Is a Hotel Management app that allows either a manager or user to log
 - Sass
 
 ## Deployment 
+https://rahughes.github.io/overlook-2/
