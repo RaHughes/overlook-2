@@ -201,7 +201,6 @@ function displayRoomsAvailable(table) {
 function bookRoom() {
   let roomID = parseInt($('.room_number').val());
   let dataToPost = {
-    "id": date.now(),
     "userID": user.id,
     "date": $('.datepicker').val(),
     "roomNumber": roomID,
@@ -212,7 +211,6 @@ function bookRoom() {
 function bookRoom2() {
   let roomID = parseInt($('.room_number2').val());
   let dataToPost = {
-    "id": Date.now(),
     "userID": user.id,
     "date": $('.datepicker2').val(),
     "roomNumber": roomID,
